@@ -18,7 +18,7 @@ diamonds <- read.delim("~/STAG36/STAG33 Lab 1/diamonds.txt")
 
 # Introduktion
 
-Enkel linjär regression är ett väsentligt verktyg för både statistiker och icke-statistiker. Genom att skapa regressionsmodeller kan vi undersöka samband mellan olika variabler, men dessa modeller är inte hjälpsamma innan vi utvärderar dess lämplighet, dels genom att analysera dess residualer. I denna rapport skapar vi flera enkla linjär regressionsmodeller med hjälp av R.
+Enkel linjär regression är ett viktigt verktyg inom statistik. Genom regressionsmodeller kan vi undersöka samband mellan variabler, men för att bedöma deras lämplighet behöver vi analysera residualerna. I denna rapport skapar vi flera enkla linjära regressionsmodeller i R.
 
 # Simulering
 
@@ -55,10 +55,8 @@ $\beta_0$ = 0, $\beta_1$ = 1 när j = 4
 
 (c) Avviker dessa fyra modeller från våra modellantaganden för enkel linjär regression? Om ja, på vilket sätt?
 
-Ja, de avviker från våra modellantaganden. Våra modellantaganden innebär bland annat att feltermen ei är okorrelerade med x och är
-normalfördelade.
+Ja. Modellantagandena kräver bland annat att feltermen $e_i$ är okorrelerad med x och normalfördelad. I modell j=1 är feltermen korrelerad med x, och i modell j=3 är feltermen inte normalfördelad.
 
-Från modellerna ser vi att, när j = 1, så är feltermen inte okorrelerade med x. Dessutom är feltermen i modell j = 3 inte normalfördelade.
 
 ```{r fig.height=3.5, fig.width=3.5}
 
@@ -129,13 +127,9 @@ Figur 7 visar modellen med $y_3$. Figur 8 visar residualplottarna.
 (d) Kan man se några avvikelser från modellantagandena i
     residualplottarna? Vilka och hur?
     
-Ja, man kan se att vissa av modellantagandena inte uppfylls. Till exempel, i figur 4 och 8 så följer inte residualerna i Q-Q plotten en rak linje där y = x. Detta tyder på att modellantagandet om feltermernas normalitet inte uppfylls.
+Ja. I figurerna 4 och 8 följer residualerna i Q-Q-plotten inte linjen y=x, vilket tyder på att normalitetsantagandet inte uppfylls. I figurerna 4, 6 och 8 syns mönster i residualplottarna som tyder på att linjäritetsantagandet inte uppfylls, exempelvis växer spridningen med x i figur 4. 
 
-Avvikelser från modellantagandet om feltermernas linjäritet förekommer i figur 4, 6, och 8. I figur 4 finns exempelvis ett mönster där spridningen växer när x växer. Om feltermerna är linjära ska det inte finnas någon tydlig tendens eller mönster bland residualerna.
-
-Scale-location plotten pekar också på att feltermernas varians ej är konstant i figur 4 och 8. En vågrätt linje skulle tyda på att feltermernas varians är konstant, men istället ser vi en tydig tendens där residualernas varians inte är konstant.
-
-Alla modellerna har hävstångspunkter som ligger utanför Cook-distansen (se figur 2, 4, 6, och 8). Detta kan tyda på att hävstångspunkterna har stort inflytande på modellen. Detta avviker inte från modellantagadena, men det kan peka på att modellen är instabil och påverkas mycket av hävstångspunkterna.
+Scale-location-plotten i figurerna 4 och 8 visar en tydlig tendens, vilket tyder på att variansen inte är konstant. Samtliga modeller har hävstångspunkter utanför Cook-distansen (figurerna 2, 4, 6 och 8), vilket kan indikera att modellerna är instabila, även om detta inte i sig utgör en avvikelse från modellantagandena.
 
 ```{r x4}
 
@@ -167,14 +161,15 @@ Figur 9 visar sista modellen. Figur 10 visar residualplottarna.
 
 (e) Hur ser modellen ut för detta datamaterial?
 
-Modellen ser ut som att den är olinjär. Den kan istället vara en polynomfunktion då den har tydliga kurvor och max- och min-punkter. 
+Modellen verkar vara olinjär och liknar snarare en polynomfunktion, med tydliga kurvor samt max- och minpunkter.
 
 (f) Avviker modellen från modellantagandena för enkel linjär regression? Om ja, hur?
-Ja. Modellantagandena innehåller bland annat att ett linjärt samband ska finnas mellan variablerna (vilket figur 9 och 10 inte exemplifierar).
+
+Ja. Figurerna 9 och 10 visar att det inte finns något linjärt samband mellan variablerna, vilket strider mot modellantagandena.
 
 (g) Syns eventuella avvikelser från modellantagandena i residualplottarna? Hur?
 
-Ja: ett annat modellantagande är att feltermerna har en konstant varians (vilket Scale-Location plotten i figur 10 inte exemplifierar då variansen har en avtagande tendens) och är normalfördelade (vilket Q-Q plotten i figur 10 inte tyder på då den inte följer en rak linje). 
+Ja. Scale-location-plotten i figur 10 visar en avtagande varians, vilket bryter mot antagandet om konstant varians. Q-Q-plotten i figur 10 följer inte en rät linje, vilket tyder på att normalitetsantagandet inte uppfylls.
 
 # Diamantringar
 
@@ -210,15 +205,13 @@ h_ii > 4/49 # om TRUE så är det en leverage point
 
 ### (a) Modellval
 
-Jag valde en enkel linjär regressionsmodell utan transformationer, där size (storlek) är förklaringsvariabeln och price (pris) är responsvariabeln. Innan jag valde modellen plottade jag variablerna mot varandra och observerade ett positivt linjärt samband mellan dem (vilket visas i figur 11). Med tanke på den uppenbarliga visuella kopplingen så ansåg jag att en enkel linjär regressionsmodell var lämplig. 
+Jag valde en enkel linjär regressionsmodell utan transformationer, med size som förklaringsvariabel och price som responsvariabel. Ett positivt linjärt samband mellan variablerna observerades vid plotting (figur 11), vilket motiverade modellvalet.
 
 ### (b) Begränsningar
 
-En potentiell begränsning med den här modellen är att det finns hävstångspunkter med stora inflytande på resultaten. Den största diamanten med storlek x = 0.35 utgör en hävstångspunkt till exempel då dess värde på leverage överstiger det dubbla av genomsnittet. 
+En potentiell begränsning är förekomsten av hävstångspunkter. Den största diamanten (x=0.35) utgör en sådan punkt, då dess leverage överstiger det dubbla av genomsnittet. Dock visar Residuals vs Leverage-plotten att punkten inte överskrider Cook-distansen, vilket tyder på att den inte påverkar modellen negativt. Det är ändå viktigt att vara medveten om dess inflytande.
 
-Att en modell har en hävstångspunkt är inte alltid en begränsning i sig, eftersom en "bra" hävstångspunkt kan göra modellen mer stabil. Dessutom kan vi se från sista plotten Residuals vs Leverage att värdet på hävstångspunkten inte överskrider Cook distansen, vilket tyder på att den inte är en "dålig" hävstångspunkt. Det är dock viktigt att vara medveten om punkten och dess inflytande på modellen.
-
-En annan begränsning är att stickprovsstorleken är liten, med endast n = 49. Detta kan göra modellen mer instabil och gör att varje punkt har mer inflytande på modellen. De standardiserade residualerna verkar vara normalfördelade ändå och modellantagandena uppfylls, vilket vi kan se i plotten Q-Q residuals i figur 12. Ändå är det värt att överväga tillämpningen av bootstrap-metoder för att minska begränsingarna som framstår när stickprovsstorleken är liten.
+En annan begränsning är den lilla stickprovsstorleken (n=49), vilket ökar varje punkts inflytande på modellen. Q-Q-plotten i figur 12 tyder dock på att residualerna är normalfördelade och att modellantagandena uppfylls. Det kan ändå vara värt att överväga bootstrap-metoder för att hantera osäkerheten vid små stickprov.
 
 
 ## Modell 2: Log-Price from log-size
@@ -244,17 +237,15 @@ mtext("Figur 14: Residualplottar modell 14", side = 3, line = 1, outer = TRUE, c
 ```
 ### (a) Modellval
 
-Jag valde att anpassa en enkel linjär regressionsmodell med log-transformationer av både förklaringsvariabeln (diamantens storlek) och responsvariabeln (priset). Att log-transformera variablerna kan minska inflytandet av hävstångspunkter och outliers, och stabilisera variansen så att modellantagandena om feltermena uppfylls. Det här är lämpligt för vår situation, då vi har några hävstångspunkter med stor inflytande. Log-transformationerna möjliggör också tolkningen av koefficienterna som procenttillväxten av responsvariabeln; det vill säga att med varje 1% tillväxt av storleken så växer priset med $\beta_1$ procent. Figur 13 visar modellen när variablerna log-transformeras.
+Jag valde en enkel linjär regressionsmodell med log-transformationer av både förklaringsvariabeln och responsvariabeln. Log-transformationer minskar hävstångspunkters och utliggares inflytande, stabiliserar variansen och möjliggör tolkning av koefficienten $\beta_1$ som prisets procentuella förändring vid 1 % ökning av storleken. Figur 13 visar den log-transformerade modellen.
 
 ### (b) Begränsningar
 
-En begränsning med modell 2 är att vissa av modellantagandena uppfylls inte till samma grad som i modell 1. Q-Q plotten i figur 14 visar exempelvis att residualernas normalitet är svagare; punkterna i början och i slutet pekar på att feltermena inte är normalfördelade.
-
-Sista plotten i figur 14, Residuals vs Leverage, visar att den största diamanten har en mindre inflytande på den här modellen, men outliers återstår. En punkt är väldigt nära Cook-distanslinjen. Detta tyder på att några få outliers har en måttlig påverkan på modellen.
+Vissa modellantaganden uppfylls inte lika väl som i modell 1. Q-Q-plotten i figur 14 visar svagare normalitet hos residualerna, särskilt i svansarna. Residuals vs Leverage-plotten visar att den största diamanten har mindre inflytande här, men en punkt ligger nära Cook-distanslinjen, vilket tyder på att några utliggare fortfarande påverkar modellen måttligt.
 
 ## Jämförelse: Modell 1 versus modell 2
 
-Trots att modell 2 möjliggör tolkningen av sambandet mellan diamantringens pris och diamantens storlek som en procentuell tillväxt så är det olämpligt att säga att själva modellen är bättre än modell 1. Hävstångspunkten har mindre inflytande, men outliers återstår. Q-Q plotten visar att residualerna är mindre normaliserade i modell 2 än i modell 1, vilket bryter mot modellantagandena om feltermenas normalitet. Även förklaringsgraden är (lite) mindre: modell 1 har en förklaringsgrad på 0.9785, och modell 2 har en förklaringsgrad på 0.971. Därför är modell 1 en lämpligare modell; modellantagandena uppfylls bättre och modellen passar bättre i allmänhet.
+Trots att log-transformationerna i modell 2 möjliggör en procentuell tolkning av sambandet är det inte motiverat att påstå att modellen är bättre. Residualernas normalitet är svagare (figur 14), och förklaringsgraden är något lägre ($R^2=0.971$ jämfört med $R^2 = 0.97850$). Modell 1 uppfyller modellantagandena bättre och är därför att föredra.
 
 # Slutsats
 
