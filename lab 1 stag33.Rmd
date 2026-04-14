@@ -22,7 +22,7 @@ Enkel linjär regression är ett viktigt verktyg inom statistik. Genom regressio
 
 # Simulering
 
-```{r 1, include=FALSE}
+```{r 1, echo=TRUE}
 
 # skapa 105 x-värden -10 och 10 och fyra uppsättningar y-värden
 x <- rep(seq(-10, 10, by = 1), each = 5)
@@ -32,7 +32,7 @@ y2 <- (2 + 0.25*x)^2 + rnorm(n = 105, mean = 0, sd = 5)
 y3 <- x + rexp(n = 105, rate = 1/4)
 ```
 
-(a) Beräkna väntevärden $ E[Y_{ji}] $ för respektive modell $ j = 0, 1, 2, 3 $
+(a) Beräkna väntevärden $E[Y_{ji}]$ för respektive modell $j = 0, 1, 2, 3$
 
 $$ E[Y_{0i}] = 4 + E[x_i]  $$
 
@@ -58,7 +58,7 @@ $\beta_0$ = 0, $\beta_1$ = 1 när j = 4
 Ja. Modellantagandena kräver bland annat att feltermen $e_i$ är okorrelerad med x och normalfördelad. I modell j=1 är feltermen korrelerad med x, och i modell j=3 är feltermen inte normalfördelad.
 
 
-```{r fig.height=3.5, fig.width=3.5}
+```{r echo=FALSE, fig.height=3.5, fig.width=3.5}
 
 m0 <- lm(y0~x)
 plot(y0~x, main = "Figur 1: y0 mot x")
@@ -66,7 +66,7 @@ abline(m0, col="red")
 
 ```
 
-```{r m0, fig.height=5, fig.width=5}
+```{r m0, echo=FALSE, fig.height=5, fig.width=5}
 
 par(mfrow=c(2,2), oma = c(0, 0, 3, 0))
 plot(m0)
@@ -76,7 +76,7 @@ mtext("Figur 2: Residualplottar modell y0", side = 3, line = 1, outer = TRUE, ce
 ```
 Figur 1 visar modellen med $y_0$. Figur 2 visar residualplottarna.
 
-```{r, fig.height=3.5, fig.width=3.5}
+```{r echo=FALSE, fig.height=3.5, fig.width=3.5}
 
 m1 <- lm(y1~x)
 plot(y1~x, main = "Figur 3: y1 mot x")
@@ -84,7 +84,7 @@ abline(m1, col="red")
 
 ```
 
-```{r m1, fig.height=5, fig.width=5}
+```{r m1, echo=FALSE, fig.height=5, fig.width=5}
 
 par(mfrow=c(2,2), oma = c(0,0,3,0))
 plot(m1)
@@ -95,27 +95,27 @@ mtext("Figur 4: Residualplottar modell y1", side = 3, line = 1, outer = TRUE, ce
 
 Figur 3 visar modellen med $y_1$. Figur 4 visar residualplottarna.
 
-```{r, fig.height=3.5, fig.width=3.5}
+```{r echo=FALSE, fig.height=3.5, fig.width=3.5}
 m2 <- lm(y2~x)
 plot(y2~x, main = "Figur 5: y2 mot x")
 abline(m2, col="red")
 
 ```
 
-```{r m2, fig.height=5, fig.width=5}
+```{r m2, echo=FALSE, fig.height=5, fig.width=5}
 par(mfrow=c(2,2), oma = c(0,0,3,0))
 plot(m2)
 mtext("Figur 6: Residualplottar modell y2", side = 3, line = 1, outer = TRUE, cex = 1, font = 2)
 ```
 
 Figur 5 visar modellen med $y_2$. Figur 6 visar residualplottarna.
-```{r, fig.height=3.5, fig.width=3.5}
+```{r echo=FALSE, fig.height=3.5, fig.width=3.5}
 m3 <- lm(y3~x)
 plot(y3~x, main = "Figur 7: y3 mot x")
 abline(m3, col="red")
 ```
 
-```{r m3, fig.height=5, fig.width=5}
+```{r m3, echo=FALSE, fig.height=5, fig.width=5}
 par(mfrow=c(2,2), oma = c(0,0,3,0))
 plot(m3)
 mtext("Figur 8: Residualplottar modell y3", side = 3, line = 1, outer = TRUE, cex = 1, font = 2)
@@ -131,7 +131,7 @@ Ja. I figurerna 4 och 8 följer residualerna i Q-Q-plotten inte linjen y=x, vilk
 
 Scale-location-plotten i figurerna 4 och 8 visar en tydlig tendens, vilket tyder på att variansen inte är konstant. Samtliga modeller har hävstångspunkter utanför Cook-distansen (figurerna 2, 4, 6 och 8), vilket kan indikera att modellerna är instabila, även om detta inte i sig utgör en avvikelse från modellantagandena.
 
-```{r x4}
+```{r x4, echo=FALSE}
 
 x4 <- seq(-10, 10, length.out=105)
 u <- rnorm(n=105)
@@ -144,14 +144,14 @@ y4 <- 4 + x4 + e4
 
 ```
 
-```{r, fig.height=3.5, fig.width=3.5}
+```{r echo=FALSE, fig.height=3.5, fig.width=3.5}
 m4 <- lm(y4~x)
 plot(y4~x, main = "Figur 9: y4 mot x")
 abline(m4, col="red")
 ```
 
 
-```{r m4, fig.height=5, fig.width=5}
+```{r m4, echo=FALSE, fig.height=5, fig.width=5}
 
 par(mfrow=c(2,2), oma = c(0, 0, 3, 0))
 plot(m4)
